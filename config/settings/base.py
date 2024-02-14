@@ -336,3 +336,8 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+TOKEN_LIFESPAN = 10 #mins
+OTP_EXPIRE_TIME = 10 #mins
+TWILIO_ACCOUNT_SID = 'AC260cfead6122d5273a70abc3ccd6aa73'
+TWILIO_AUTH_TOKEN = '89ebf9f9c4e1affde1a178f8f273a64c'
+TWILIO_PHONE_NUMBER = '+998930516142'
