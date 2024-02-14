@@ -26,6 +26,7 @@ class Book(BaseModel):
     pages_count = models.PositiveIntegerField(default=0)
     published_at = models.DateField()
     description = models.TextField()
+    is_available = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title

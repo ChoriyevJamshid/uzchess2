@@ -14,7 +14,8 @@ urlpatterns = [
     path("users/", include("users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-    path('api/course/', include('course.urls'))
+    path('api/course/', include('course.urls')),
+    path('api/library/', include('library.urls'))
 
 
 
