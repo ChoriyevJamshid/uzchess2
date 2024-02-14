@@ -20,6 +20,7 @@ class Book(BaseModel):
     title = models.CharField(max_length=128)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     image = models.ImageField(upload_to='books')
     level = models.CharField(max_length=16, choices=Level.choices, default=Level.AMATEUR)
