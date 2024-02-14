@@ -14,7 +14,10 @@ class CourseListAPIView(generics.ListAPIView):
     filter_backends = (DjangoFilterBackend,)
 
     def get_queryset(self):
-        courses = super().get_queryset().annotate(
+        courses = super().get_queryset().select_related(
+            "category"
+        )
+        courses = courses.annotate(
             chapters_count=db_models.Count('chapters'),
             is_like=functions.Coalesce(db_models.Exists(
                 self.request.user.like_courses.filter(id=db_models.OuterRef('id'))
@@ -26,9 +29,19 @@ class CourseListAPIView(generics.ListAPIView):
         return courses
 
 
+class CourseDetailAPIView(generics.RetrieveAPIView):
+    queryset = models.Course.objects.all()
+    serializer_class = ser.CourseDetailSerializer
 
 
+class ChapterDetailAPIView(generics.RetrieveAPIView):
+    queryset = models.Chapter.objects.all()
+    serializer_class = ser.ChapterDetailSerializer
 
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            course_id=self.kwargs.get('course_id')
+        )
 
 
 

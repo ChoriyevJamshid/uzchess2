@@ -79,7 +79,8 @@ class Lesson(BaseModel):
 
 
 class Comment(BaseModel):
-
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,
+                             related_name='comments')
     course = models.ForeignKey(Course, on_delete=models.CASCADE,
                                related_name='comments')
     content = models.CharField(max_length=500)
