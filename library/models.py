@@ -1,5 +1,6 @@
 from django.db import models
 from utils.models import BaseModel
+from django.contrib.auth import get_user_model
 
 
 class Level(models.TextChoices):
@@ -32,5 +33,20 @@ class Book(BaseModel):
         return self.title
 
 
+class Cart(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    items = models.ManyToManyField('Book', through='CartItem')
+
+    def __str__(self):
+        return f"Cart for {self.user}"
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    book = models.ForeignKey('Book', on_delete=models.CASCADE, related_name='cartitems')
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.book.title} in {self.cart}"
 
 
